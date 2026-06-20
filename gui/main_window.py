@@ -1,12 +1,13 @@
 import sys
+
 from PyQt6.QtWidgets import (
-QApplication,
-QWidget,
-QLabel,
-QPushButton,
-QVBoxLayout
+    QApplication,
+    QWidget,
+    QVBoxLayout
 )
-from PyQt6.QtCore import Qt
+
+from cube_editor import CubeEditor
+
 
 class CubeSolverGUI(QWidget):
 
@@ -14,56 +15,16 @@ class CubeSolverGUI(QWidget):
         super().__init__()
 
         self.setWindowTitle("Rubik's Cube Solver")
-        self.resize(800, 500)
-
-        title = QLabel("Rubik's Cube Solver")
-        title.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        title.setStyleSheet("""
-            font-size: 28px;
-            font-weight: bold;
-            color: white;
-            padding: 20px;
-        """)
-
-        self.scan_button = QPushButton("Scan Cube")
-        self.solve_button = QPushButton("Solve Cube")
-
-        button_style = """
-            QPushButton{
-                background-color:#3B82F6;
-                color:white;
-                border:none;
-                border-radius:10px;
-                padding:12px;
-                font-size:16px;
-            }
-
-            QPushButton:hover{
-                background-color:#2563EB;
-            }
-        """
-
-        self.scan_button.setStyleSheet(button_style)
-        self.solve_button.setStyleSheet(button_style)
+        self.resize(800, 600)
 
         layout = QVBoxLayout()
 
-        layout.addWidget(title)
-        layout.addStretch()
+        self.editor = CubeEditor()
 
-        layout.addWidget(self.scan_button)
-        layout.addWidget(self.solve_button)
-
-        layout.addStretch()
+        layout.addWidget(self.editor)
 
         self.setLayout(layout)
 
-        self.setStyleSheet("""
-            QWidget{
-                background-color:#121212;
-            }
-        """)
 
 app = QApplication(sys.argv)
 
