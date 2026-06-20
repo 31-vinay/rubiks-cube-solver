@@ -1,6 +1,6 @@
-from cube_input import get_cube_state
-from cube_validator import validate_cube
-from cube_solver import solve_cube
+from solver.cube_input import get_cube_state
+from solver.cube_validator import validate_cube
+from solver.cube_solver import solve_cube
 
 print("\n=== Rubik's Cube Solver ===")
 
