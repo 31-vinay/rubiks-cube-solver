@@ -2,11 +2,12 @@ from PyQt6.QtWidgets import (
     QWidget,
     QGridLayout,
     QVBoxLayout,
-    QLabel
+    QLabel,
+    QHBoxLayout
 )
 
 from cube_face import CubeFace
-
+from color_palette import ColorPalette
 
 class CubeEditor(QWidget):
 
@@ -25,6 +26,10 @@ class CubeEditor(QWidget):
 
         main_layout.addWidget(title)
 
+        self.palette = ColorPalette()
+
+        content_layout = QHBoxLayout()
+
         cube_net = QGridLayout()
 
         self.up = CubeFace("U")
@@ -33,6 +38,13 @@ class CubeEditor(QWidget):
         self.right = CubeFace("R")
         self.back = CubeFace("B")
         self.down = CubeFace("D")
+
+        self.up.setParent(self)
+        self.left.setParent(self)
+        self.front.setParent(self)
+        self.right.setParent(self)
+        self.back.setParent(self)
+        self.down.setParent(self)
 
         cube_net.addWidget(self.up, 0, 1)
 
@@ -43,7 +55,10 @@ class CubeEditor(QWidget):
 
         cube_net.addWidget(self.down, 2, 1)
 
-        main_layout.addLayout(cube_net)
+        content_layout.addWidget(self.palette)
+        content_layout.addLayout(cube_net)
+
+        main_layout.addLayout(content_layout)
 
         self.setLayout(main_layout)
 
