@@ -8,6 +8,7 @@ from cube_scanner import (
 )
 
 FACE_TO_SCAN = next_face_to_scan()
+print(next_face_to_scan())
 print(
     f"\nPlease scan: {FACE_TO_SCAN}"
 )

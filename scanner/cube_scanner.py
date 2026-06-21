@@ -109,4 +109,4 @@ def scanned_count():
 
     return count
 
-    load_cube_faces()
+load_cube_faces()

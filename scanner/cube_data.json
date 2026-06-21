@@ -16,7 +16,23 @@
             "blue"
         ]
     ],
-    "R": null,
+    "R": [
+        [
+            "yellow",
+            "green",
+            "green"
+        ],
+        [
+            "red",
+            "yellow",
+            "orange"
+        ],
+        [
+            "yellow",
+            "blue",
+            "blue"
+        ]
+    ],
     "F": null,
     "D": null,
     "L": null,
