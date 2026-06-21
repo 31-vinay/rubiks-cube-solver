@@ -2,7 +2,15 @@ import cv2
 import os
 import numpy as np
 
-from cube_scanner import save_face
+from cube_scanner import (
+    save_face,
+    next_face_to_scan
+)
+
+FACE_TO_SCAN = next_face_to_scan()
+print(
+    f"\nPlease scan: {FACE_TO_SCAN}"
+)
 
 def detect_color_hsv(h, s, v):
 
@@ -99,7 +107,7 @@ print("\nDetected Face:")
 for row in face_colors:
     print(row)
 
-save_face("F", face_colors)
+save_face(FACE_TO_SCAN, face_colors)
 
 cv2.imshow("Sampling Points", image)
 
