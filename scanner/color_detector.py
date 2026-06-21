@@ -2,6 +2,8 @@ import cv2
 import os
 import numpy as np
 
+from cube_scanner import save_face
+
 def detect_color_hsv(h, s, v):
 
     if 20 <= h <= 40:
@@ -96,6 +98,8 @@ for row in range(3):
 print("\nDetected Face:")
 for row in face_colors:
     print(row)
+
+save_face("F", face_colors)
 
 cv2.imshow("Sampling Points", image)
 

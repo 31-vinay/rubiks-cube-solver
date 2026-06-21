@@ -25,13 +25,3 @@ def show_cube():
         print(f"\n{face}:")
 
         print(data)
-
-test_face = [
-    ["yellow","green","green"],
-    ["red","yellow","orange"],
-    ["yellow","blue","blue"]
-]
-
-save_face("F", test_face)
-
-show_cube()
