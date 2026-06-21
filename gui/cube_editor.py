@@ -82,6 +82,27 @@ class CubeEditor(QWidget):
 
         main_layout.addWidget(self.reset_button)
 
+        self.state_button = QPushButton("Generate State")
+
+        self.state_button.setStyleSheet("""
+            QPushButton{
+                background-color:#2563EB;
+                color:white;
+                border:none;
+                border-radius:8px;
+                padding:10px;
+                font-size:14px;
+            }
+
+            QPushButton:hover{
+                background-color:#1D4ED8;
+            }
+        """)
+
+        self.state_button.clicked.connect(self.generate_state)
+
+        main_layout.addWidget(self.state_button)
+
         self.setLayout(main_layout)
 
         self.setStyleSheet("""
@@ -133,3 +154,41 @@ class CubeEditor(QWidget):
                         border:1px solid #444;
                         """
                     )
+
+    def generate_state(self):
+
+        faces = [
+            self.up,
+            self.right,
+            self.front,
+            self.down,
+            self.left,
+            self.back
+        ]
+
+        color_to_face = {
+            "white": "U",
+            "red": "R",
+            "green": "F",
+            "yellow": "D",
+            "orange": "L",
+            "blue": "B"
+        }
+
+        cube_state = ""
+
+        for face in faces:
+
+            for row in face.stickers:
+
+                for sticker in row:
+
+                    cube_state += color_to_face[
+                        sticker.current_color
+                    ]
+
+        print("\nCube State:")
+        print(cube_state)
+
+        print("\nLength:")
+        print(len(cube_state))
