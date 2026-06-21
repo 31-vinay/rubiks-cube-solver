@@ -46,7 +46,10 @@ start_y = center_y - grid_size // 2
 
 sample_points = []
 
+face_colors = []
+
 for row in range(3):
+    row_colors = []
     for col in range(3):
 
         x = start_x + col * cell_size + cell_size // 2
@@ -74,6 +77,8 @@ for row in range(3):
 
         color = detect_color_hsv(h, s, v)
 
+        row_colors.append(color)
+
         print(
             f"Cell ({row},{col}) -> {color}"
         )
@@ -85,6 +90,12 @@ for row in range(3):
             (0, 0, 255),
             -1
         )
+
+    face_colors.append(row_colors)
+
+print("\nDetected Face:")
+for row in face_colors:
+    print(row)
 
 cv2.imshow("Sampling Points", image)
 
