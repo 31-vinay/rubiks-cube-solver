@@ -1,22 +1,23 @@
 import cv2
 import os
+import numpy as np
 
-def detect_color(r, g, b):
+def detect_color_hsv(h, s, v):
 
-    if r > 200 and g > 200:
+    if 20 <= h <= 40:
         return "yellow"
 
-    elif b > r and b > g:
-        return "blue"
-
-    elif g > r and g > b:
+    elif 70 <= h <= 95:
         return "green"
 
-    elif r > 200 and g > 120:
-        return "orange"
+    elif 100 <= h <= 130:
+        return "blue"
 
-    elif r > 150 and g < 130:
+    elif 0 <= h <= 5:
         return "red"
+
+    elif 6 <= h <= 20:
+        return "orange"
 
     return "unknown"
 
@@ -58,9 +59,20 @@ for row in range(3):
             x-5:x+5
         ]
 
-        b, g, r = sample.mean(axis=(0, 1))
+        avg_bgr = sample.mean(axis=(0, 1))
 
-        color = detect_color(r, g, b)
+        pixel = [[[int(avg_bgr[0]),
+                int(avg_bgr[1]),
+                int(avg_bgr[2])]]]
+
+        hsv = cv2.cvtColor(
+            np.uint8(pixel),
+            cv2.COLOR_BGR2HSV
+        )
+
+        h, s, v = hsv[0][0]
+
+        color = detect_color_hsv(h, s, v)
 
         print(
             f"Cell ({row},{col}) -> {color}"
