@@ -61,27 +61,6 @@ class CubeEditor(QWidget):
 
         main_layout.addLayout(content_layout)
 
-        self.scramble_button = QPushButton("Scramble Cube")
-
-        self.scramble_button.setStyleSheet("""
-            QPushButton{
-                background-color:#F59E0B;
-                color:white;
-                border:none;
-                border-radius:8px;
-                padding:10px;
-                font-size:14px;
-            }
-
-            QPushButton:hover{
-                background-color:#D97706;
-            }
-        """)
-
-        self.scramble_button.clicked.connect(self.scramble_cube)
-
-        main_layout.addWidget(self.scramble_button)
-
         self.reset_button = QPushButton("Reset Cube")
 
         self.reset_button.setStyleSheet("""
