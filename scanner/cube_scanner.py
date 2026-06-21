@@ -126,6 +126,16 @@ def solve_scanned_cube():
     if cube_state is None:
         return None
 
+    if cube_state == (
+        "UUUUUUUUU"
+        "RRRRRRRRR"
+        "FFFFFFFFF"
+        "DDDDDDDDD"
+        "LLLLLLLLL"
+        "BBBBBBBBB"
+    ):
+        return "Cube is already solved"
+
     try:
 
         import kociemba
@@ -157,5 +167,3 @@ def scanned_count():
     return count
 
 load_cube_faces()
-
-print(solve_scanned_cube())
