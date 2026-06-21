@@ -91,6 +91,53 @@ def show_cube():
         print(f"\n{face}:")
         print(data)
 
+def generate_cube_state():
+
+    if not all_faces_scanned():
+
+        print("Not all faces scanned")
+
+        return None
+
+    center_map = {}
+
+    for face in FACE_ORDER:
+
+        center_color = cube_faces[face][1][1]
+
+        center_map[center_color] = face
+
+    cube_state = ""
+
+    for face in FACE_ORDER:
+
+        for row in cube_faces[face]:
+
+            for color in row:
+
+                cube_state += center_map[color]
+
+    return cube_state
+
+def solve_scanned_cube():
+
+    cube_state = generate_cube_state()
+
+    if cube_state is None:
+        return None
+
+    try:
+
+        import kociemba
+
+        solution = kociemba.solve(cube_state)
+
+        return solution
+
+    except Exception as e:
+
+        return f"Error: {e}"
+
 def all_faces_scanned():
 
     return all(
@@ -110,3 +157,5 @@ def scanned_count():
     return count
 
 load_cube_faces()
+
+print(solve_scanned_cube())
