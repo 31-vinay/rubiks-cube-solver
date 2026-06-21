@@ -162,6 +162,28 @@ class CubeEditor(QWidget):
                 background-color:#121212;
             }
         """)
+
+        self.load_button = QPushButton("Load Solved Cube")
+
+        self.load_button.setStyleSheet("""
+            QPushButton{
+                background-color:#0891B2;
+                color:white;
+                border:none;
+                border-radius:8px;
+                padding:10px;
+                font-size:14px;
+            }
+
+            QPushButton:hover{
+                background-color:#0E7490;
+            }
+        """)
+
+        self.load_button.clicked.connect(self.load_solved_cube)
+
+        main_layout.addWidget(self.load_button)
+
     def reset_cube(self):
 
         faces = [
@@ -206,6 +228,38 @@ class CubeEditor(QWidget):
                         border:1px solid #444;
                         """
                     )
+
+    def load_solved_cube(self):
+
+        faces = {
+            self.up: "white",
+            self.right: "red",
+            self.front: "green",
+            self.down: "yellow",
+            self.left: "orange",
+            self.back: "blue"
+        }
+
+        for face, color in faces.items():
+
+            for row in range(3):
+
+                for col in range(3):
+
+                    sticker = face.stickers[row][col]
+
+                    sticker.current_color = color
+
+                    sticker.setStyleSheet(
+                        f"""
+                        background-color:{color};
+                        border:1px solid #444;
+                        """
+                    )
+
+        self.solution_label.setText(
+            "Solved cube loaded"
+        )
 
     def get_color_counts(self):
 
