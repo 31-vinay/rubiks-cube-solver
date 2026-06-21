@@ -8,6 +8,7 @@ from PyQt6.QtWidgets import (
 
 from cube_face import CubeFace
 from color_palette import ColorPalette
+from PyQt6.QtWidgets import QPushButton
 
 class CubeEditor(QWidget):
 
@@ -60,6 +61,27 @@ class CubeEditor(QWidget):
 
         main_layout.addLayout(content_layout)
 
+        self.reset_button = QPushButton("Reset Cube")
+
+        self.reset_button.setStyleSheet("""
+            QPushButton{
+                background-color:#ef4444;
+                color:white;
+                border:none;
+                border-radius:8px;
+                padding:10px;
+                font-size:14px;
+            }
+
+            QPushButton:hover{
+                background-color:#dc2626;
+            }
+        """)
+
+        self.reset_button.clicked.connect(self.reset_cube)
+
+        main_layout.addWidget(self.reset_button)
+
         self.setLayout(main_layout)
 
         self.setStyleSheet("""
@@ -67,3 +89,47 @@ class CubeEditor(QWidget):
                 background-color:#121212;
             }
         """)
+    def reset_cube(self):
+
+        faces = [
+            self.up,
+            self.left,
+            self.front,
+            self.right,
+            self.back,
+            self.down
+        ]
+
+        center_colors = {
+            "U": "white",
+            "D": "yellow",
+            "F": "green",
+            "B": "blue",
+            "R": "red",
+            "L": "orange"
+        }
+
+        for face in faces:
+
+            for row in range(3):
+
+                for col in range(3):
+
+                    sticker = face.stickers[row][col]
+
+                    if sticker.is_center:
+
+                        color = center_colors[face.face_name]
+
+                    else:
+
+                        color = "white"
+
+                    sticker.current_color = color
+
+                    sticker.setStyleSheet(
+                        f"""
+                        background-color:{color};
+                        border:1px solid #444;
+                        """
+                    )

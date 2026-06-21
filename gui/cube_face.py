@@ -1,6 +1,5 @@
 from PyQt6.QtWidgets import QWidget, QPushButton, QGridLayout
 
-
 class CubeFace(QWidget):
 
     def __init__(self, face_name):
@@ -14,17 +13,12 @@ class CubeFace(QWidget):
         self.stickers = []
 
         for row in range(3):
+
             row_buttons = []
 
             for col in range(3):
 
                 color = "white"
-
-                button = QPushButton()
-                button.current_color = color
-
-                button.setFixedSize(45, 45)
-
 
                 if row == 1 and col == 1:
 
@@ -39,6 +33,13 @@ class CubeFace(QWidget):
 
                     color = center_colors[face_name]
 
+                button = QPushButton()
+
+                button.current_color = color
+                button.is_center = (row == 1 and col == 1)
+
+                button.setFixedSize(45, 45)
+
                 button.setStyleSheet(
                     f"""
                     background-color:{color};
@@ -47,39 +48,42 @@ class CubeFace(QWidget):
                 )
 
                 button.clicked.connect(
-                lambda checked, btn=button:
-                self.sticker_clicked(btn)
+                    lambda checked, btn=button:
+                    self.sticker_clicked(btn)
                 )
 
                 self.layout.addWidget(button, row, col)
 
                 row_buttons.append(button)
 
-                self.stickers.append(row_buttons)
+            self.stickers.append(row_buttons)
 
-                self.setLayout(self.layout)
+        self.setLayout(self.layout)
 
     def sticker_clicked(self, button):
 
-                parent_editor = self.parent()
+        if button.is_center:
+            return
 
-                while parent_editor:
+        parent_editor = self.parent()
 
-                    if hasattr(parent_editor, "palette"):
-                        break
+        while parent_editor:
 
-                    parent_editor = parent_editor.parent()
+            if hasattr(parent_editor, "palette"):
+                break
 
-                if not parent_editor:
-                    return
+            parent_editor = parent_editor.parent()
 
-                selected_color = parent_editor.palette.selected_color
+        if not parent_editor:
+            return
 
-                button.current_color = selected_color
+        selected_color = parent_editor.palette.selected_color
 
-                button.setStyleSheet(
-                    f"""
-                    background-color:{selected_color};
-                    border:1px solid #444;
-                    """
-                )
+        button.current_color = selected_color
+
+        button.setStyleSheet(
+            f"""
+            background-color:{selected_color};
+            border:1px solid #444;
+            """
+        )
