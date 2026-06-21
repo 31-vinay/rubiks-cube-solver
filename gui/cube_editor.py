@@ -155,14 +155,6 @@ class CubeEditor(QWidget):
 
         main_layout.addWidget(self.solution_label)
 
-        self.setLayout(main_layout)
-
-        self.setStyleSheet("""
-            QWidget{
-                background-color:#121212;
-            }
-        """)
-
         self.load_button = QPushButton("Load Solved Cube")
 
         self.load_button.setStyleSheet("""
@@ -183,6 +175,14 @@ class CubeEditor(QWidget):
         self.load_button.clicked.connect(self.load_solved_cube)
 
         main_layout.addWidget(self.load_button)
+
+        self.setLayout(main_layout)
+
+        self.setStyleSheet("""
+            QWidget{
+                background-color:#121212;
+            }
+        """)
 
     def reset_cube(self):
 
@@ -426,6 +426,9 @@ class CubeEditor(QWidget):
             import kociemba
 
             cube_state = self.get_cube_state()
+
+            print("\nSOLVE STATE:")
+            print(cube_state)
 
             solution = kociemba.solve(cube_state)
 
