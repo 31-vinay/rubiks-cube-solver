@@ -19,10 +19,7 @@ sys.path.append(
     )
 )
 
-from scanner.cube_scanner import (
-    cube_faces,
-    load_cube_faces
-)
+import scanner.cube_scanner as cube_scanner
 
 class CubeEditor(QWidget):
 
@@ -497,7 +494,10 @@ class CubeEditor(QWidget):
 
         for face in ["U", "R", "F", "D", "L", "B"]:
 
-            if cube_faces[face] is not None:
+            if (
+                cube_scanner.cube_faces[face] is not None
+                and cube_scanner.cube_faces[face] != [["null"]]
+            ):
                 text += f"{face} ✓\n"
             else:
                 text += f"{face} ✗\n"
@@ -514,7 +514,9 @@ class CubeEditor(QWidget):
                 [sys.executable, "scanner/color_detector.py"]
             )
 
-            load_cube_faces()
+            cube_scanner.load_cube_faces()
+
+            print(cube_scanner.cube_faces)
 
             self.update_scan_status()
 

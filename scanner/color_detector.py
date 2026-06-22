@@ -119,5 +119,17 @@ save_face(FACE_TO_SCAN, face_colors)
 
 cv2.imshow("Sampling Points", image)
 
-cv2.waitKey(0)
+while True:
+
+    key = cv2.waitKey(1)
+
+    if key == ord('q'):
+        break
+
+    if cv2.getWindowProperty(
+        "Sampling Points",
+        cv2.WND_PROP_VISIBLE
+    ) < 1:
+        break
+    
 cv2.destroyAllWindows()
