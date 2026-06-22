@@ -9,6 +9,16 @@ from PyQt6.QtWidgets import (
 from cube_face import CubeFace
 from color_palette import ColorPalette
 from PyQt6.QtWidgets import QPushButton
+import sys
+import os
+
+sys.path.append(
+    os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__))
+    )
+)
+
+from scanner.cube_scanner import cube_faces
 
 class CubeEditor(QWidget):
 
@@ -146,6 +156,41 @@ class CubeEditor(QWidget):
         main_layout.addWidget(self.solve_button)
 
         self.solution_label = QLabel("Solution will appear here")
+
+        self.scan_status_label = QLabel()
+
+        self.scan_status_label.setStyleSheet("""
+            color:white;
+            font-size:14px;
+            padding:10px;
+        """)
+
+        main_layout.addWidget(self.scan_status_label)
+
+        self.update_scan_status()
+
+        self.scan_button = QPushButton("Scan Next Face")
+
+        self.scan_button.setStyleSheet("""
+            QPushButton{
+                background-color:#F59E0B;
+                color:white;
+                border:none;
+                border-radius:8px;
+                padding:10px;
+                font-size:14px;
+            }
+
+            QPushButton:hover{
+                background-color:#D97706;
+            }
+        """)
+
+        self.scan_button.clicked.connect(
+            self.scan_face
+        )
+
+        main_layout.addWidget(self.scan_button)
 
         self.solution_label.setStyleSheet("""
             color:white;
@@ -441,3 +486,22 @@ class CubeEditor(QWidget):
             self.solution_label.setText(
                 f"Error: {str(e)}"
             )
+
+    def update_scan_status(self):
+
+        text = "Scanned Faces:\n\n"
+
+        for face in ["U", "R", "F", "D", "L", "B"]:
+
+            if cube_faces[face] is not None:
+                text += f"{face} ✓\n"
+            else:
+                text += f"{face} ✗\n"
+
+        self.scan_status_label.setText(text)
+
+    def scan_face(self):
+
+        self.solution_label.setText(
+            "Scanner integration coming next..."
+        )
