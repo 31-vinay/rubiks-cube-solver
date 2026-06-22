@@ -11,6 +11,7 @@ from color_palette import ColorPalette
 from PyQt6.QtWidgets import QPushButton
 import sys
 import os
+import subprocess
 
 sys.path.append(
     os.path.dirname(
@@ -18,7 +19,10 @@ sys.path.append(
     )
 )
 
-from scanner.cube_scanner import cube_faces
+from scanner.cube_scanner import (
+    cube_faces,
+    load_cube_faces
+)
 
 class CubeEditor(QWidget):
 
@@ -502,6 +506,24 @@ class CubeEditor(QWidget):
 
     def scan_face(self):
 
-        self.solution_label.setText(
-            "Scanner integration coming next..."
-        )
+        try:
+
+            import sys
+
+            subprocess.run(
+                [sys.executable, "scanner/color_detector.py"]
+            )
+
+            load_cube_faces()
+
+            self.update_scan_status()
+
+            self.solution_label.setText(
+                "Face scanned successfully"
+            )
+
+        except Exception as e:
+
+            self.solution_label.setText(
+                f"Error: {str(e)}"
+            )

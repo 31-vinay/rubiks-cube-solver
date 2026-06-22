@@ -1,25 +1,104 @@
 {
-    "U":[["white","white","white"],
-         ["white","white","white"],
-         ["white","white","white"]],
-
-    "R":[["red","red","red"],
-         ["red","red","red"],
-         ["red","red","red"]],
-
-    "F":[["green","green","green"],
-         ["green","green","green"],
-         ["green","green","green"]],
-
-    "D":[["yellow","yellow","yellow"],
-         ["yellow","yellow","yellow"],
-         ["yellow","yellow","yellow"]],
-
-    "L":[["orange","orange","orange"],
-         ["orange","orange","orange"],
-         ["orange","orange","orange"]],
-
-    "B":[["blue","blue","blue"],
-         ["blue","blue","blue"],
-         ["blue","blue","blue"]]
+    "U": [
+        [
+            "white",
+            "white",
+            "white"
+        ],
+        [
+            "white",
+            "white",
+            "white"
+        ],
+        [
+            "white",
+            "white",
+            "white"
+        ]
+    ],
+    "R": [
+        [
+            "red",
+            "red",
+            "red"
+        ],
+        [
+            "red",
+            "red",
+            "red"
+        ],
+        [
+            "red",
+            "red",
+            "red"
+        ]
+    ],
+    "F": [
+        [
+            "green",
+            "green",
+            "green"
+        ],
+        [
+            "green",
+            "green",
+            "green"
+        ],
+        [
+            "green",
+            "green",
+            "green"
+        ]
+    ],
+    "D": [
+        [
+            "yellow",
+            "yellow",
+            "yellow"
+        ],
+        [
+            "yellow",
+            "yellow",
+            "yellow"
+        ],
+        [
+            "yellow",
+            "yellow",
+            "yellow"
+        ]
+    ],
+    "L": [
+        [
+            "orange",
+            "orange",
+            "orange"
+        ],
+        [
+            "orange",
+            "orange",
+            "orange"
+        ],
+        [
+            "orange",
+            "orange",
+            "orange"
+        ]
+    ],
+    "B": [
+        [
+            "blue",
+            "blue",
+            "blue"
+        ],
+        [
+            "blue",
+            "blue",
+            "blue"
+        ],
+        [
+            "blue",
+            "blue",
+            "blue"
+        ]
+    ]
 }
