@@ -21,6 +21,11 @@ sys.path.append(
 
 import scanner.cube_scanner as cube_scanner
 
+from scanner.cube_scanner import (
+    solve_scanned_cube,
+    all_faces_scanned
+)
+
 class CubeEditor(QWidget):
 
     def __init__(self):
@@ -80,8 +85,8 @@ class CubeEditor(QWidget):
                 color:white;
                 border:none;
                 border-radius:8px;
-                padding:10px;
-                font-size:14px;
+                padding:6px;
+                font-size:13px;
             }
 
             QPushButton:hover{
@@ -101,8 +106,8 @@ class CubeEditor(QWidget):
                 color:white;
                 border:none;
                 border-radius:8px;
-                padding:10px;
-                font-size:14px;
+                padding:6px;
+                font-size:13px;
             }
 
             QPushButton:hover{
@@ -122,8 +127,8 @@ class CubeEditor(QWidget):
                 color:white;
                 border:none;
                 border-radius:8px;
-                padding:10px;
-                font-size:14px;
+                padding:6px;
+                font-size:13px;
             }
 
             QPushButton:hover{
@@ -143,8 +148,8 @@ class CubeEditor(QWidget):
                 color:white;
                 border:none;
                 border-radius:8px;
-                padding:10px;
-                font-size:14px;
+                padding:6px;
+                font-size:13px;
             }
 
             QPushButton:hover{
@@ -155,15 +160,17 @@ class CubeEditor(QWidget):
         self.solve_button.clicked.connect(self.solve_cube)
 
         main_layout.addWidget(self.solve_button)
-
+        
         self.solution_label = QLabel("Solution will appear here")
+        self.solution_label.setWordWrap(True)
+        self.solution_label.setMaximumHeight(50)
 
         self.scan_status_label = QLabel()
 
         self.scan_status_label.setStyleSheet("""
             color:white;
-            font-size:14px;
-            padding:10px;
+            font-size:13px;
+            padding:6px;
         """)
 
         main_layout.addWidget(self.scan_status_label)
@@ -178,8 +185,8 @@ class CubeEditor(QWidget):
                 color:white;
                 border:none;
                 border-radius:8px;
-                padding:10px;
-                font-size:14px;
+                padding:6px;
+                font-size:13px;
             }
 
             QPushButton:hover{
@@ -191,12 +198,39 @@ class CubeEditor(QWidget):
             self.scan_face
         )
 
+        self.solve_scan_button = QPushButton(
+            "Solve Scanned Cube"
+        )
+
+        self.solve_scan_button.setStyleSheet("""
+            QPushButton{
+                background-color:#DC2626;
+                color:white;
+                border:none;
+                border-radius:8px;
+                padding:6px;
+                font-size:13px;
+            }
+
+            QPushButton:hover{
+                background-color:#B91C1C;
+            }
+        """)
+
+        self.solve_scan_button.clicked.connect(
+            self.solve_scanned_cube_gui
+        )
+
+        main_layout.addWidget(
+            self.solve_scan_button
+        )
+
         main_layout.addWidget(self.scan_button)
 
         self.solution_label.setStyleSheet("""
             color:white;
-            font-size:14px;
-            padding:10px;
+            font-size:13px;
+            padding:6px;
         """)
 
         main_layout.addWidget(self.solution_label)
@@ -209,8 +243,8 @@ class CubeEditor(QWidget):
                 color:white;
                 border:none;
                 border-radius:8px;
-                padding:10px;
-                font-size:14px;
+                padding:6px;
+                font-size:13px;
             }
 
             QPushButton:hover{
@@ -490,7 +524,7 @@ class CubeEditor(QWidget):
 
     def update_scan_status(self):
 
-        text = "Scanned Faces:\n\n"
+        text = "Scanned: "
 
         for face in ["U", "R", "F", "D", "L", "B"]:
 
@@ -498,9 +532,9 @@ class CubeEditor(QWidget):
                 cube_scanner.cube_faces[face] is not None
                 and cube_scanner.cube_faces[face] != [["null"]]
             ):
-                text += f"{face} ✓\n"
+                text += f"{face}✓  "
             else:
-                text += f"{face} ✗\n"
+                text += f"{face}✗  "
 
         self.scan_status_label.setText(text)
 
@@ -529,3 +563,21 @@ class CubeEditor(QWidget):
             self.solution_label.setText(
                 f"Error: {str(e)}"
             )
+
+    def solve_scanned_cube_gui(self):
+
+        cube_scanner.load_cube_faces()
+
+        if not all_faces_scanned():
+
+            self.solution_label.setText(
+                "Please scan all 6 faces first"
+            )
+
+            return
+
+        solution = solve_scanned_cube()
+
+        self.solution_label.setText(
+            f"Solution: {solution}"
+        )

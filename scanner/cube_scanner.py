@@ -140,6 +140,8 @@ def solve_scanned_cube():
 
         import kociemba
 
+        cube_state = generate_cube_state()
+
         solution = kociemba.solve(cube_state)
 
         return solution
@@ -150,10 +152,12 @@ def solve_scanned_cube():
 
 def all_faces_scanned():
 
-    return all(
-        face is not None
-        for face in cube_faces.values()
-    )
+    for face in FACE_ORDER:
+
+        if cube_faces[face] is None:
+            return False
+
+    return True
 
 def scanned_count():
 
