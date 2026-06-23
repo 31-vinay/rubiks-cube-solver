@@ -1,19 +1,19 @@
 {
     "U": [
         [
-            "white",
-            "white",
-            "white"
+            "red",
+            "red",
+            "red"
         ],
         [
-            "white",
-            "white",
-            "white"
+            "red",
+            "red",
+            "blue"
         ],
         [
-            "white",
-            "white",
-            "white"
+            "blue",
+            "yellow",
+            "green"
         ]
     ],
     "R": [

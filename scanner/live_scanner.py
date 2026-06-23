@@ -27,6 +27,13 @@ while True:
 
         print("Image Captured")
 
+        import subprocess
+        import sys
+
+        subprocess.run(
+            [sys.executable, "scanner/color_detector.py"]
+        )
+
         break
 
     if key == ord("q"):

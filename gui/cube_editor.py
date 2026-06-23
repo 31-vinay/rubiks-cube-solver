@@ -547,7 +547,7 @@ class CubeEditor(QWidget):
             import sys
 
             subprocess.run(
-                [sys.executable, "scanner/color_detector.py"]
+                [sys.executable, "scanner/live_scanner.py"]
             )
 
             cube_scanner.load_cube_faces()
