@@ -15,7 +15,6 @@ if FACE_TO_SCAN is None:
 
     exit()
 
-print(next_face_to_scan())
 print(
     f"\nPlease scan: {FACE_TO_SCAN}"
 )

@@ -160,7 +160,7 @@ class CubeEditor(QWidget):
         self.solve_button.clicked.connect(self.solve_cube)
 
         main_layout.addWidget(self.solve_button)
-        
+
         self.solution_label = QLabel("Solution will appear here")
         self.solution_label.setWordWrap(True)
         self.solution_label.setMaximumHeight(50)
@@ -176,6 +176,10 @@ class CubeEditor(QWidget):
         main_layout.addWidget(self.scan_status_label)
 
         self.update_scan_status()
+
+        cube_scanner.load_cube_faces()
+
+        self.load_scanned_cube_into_gui()
 
         self.scan_button = QPushButton("Scan Next Face")
 
@@ -221,11 +225,9 @@ class CubeEditor(QWidget):
             self.solve_scanned_cube_gui
         )
 
-        main_layout.addWidget(
-            self.solve_scan_button
-        )
-
         main_layout.addWidget(self.scan_button)
+
+        main_layout.addWidget(self.solve_scan_button)
 
         self.solution_label.setStyleSheet("""
             color:white;
@@ -550,7 +552,7 @@ class CubeEditor(QWidget):
 
             cube_scanner.load_cube_faces()
 
-            print(cube_scanner.cube_faces)
+            self.load_scanned_cube_into_gui()
 
             self.update_scan_status()
 
@@ -581,3 +583,37 @@ class CubeEditor(QWidget):
         self.solution_label.setText(
             f"Solution: {solution}"
         )
+
+    def load_scanned_cube_into_gui(self):
+
+        face_map = {
+            "U": self.up,
+            "R": self.right,
+            "F": self.front,
+            "D": self.down,
+            "L": self.left,
+            "B": self.back
+        }
+
+        for face_name, gui_face in face_map.items():
+
+            scanned_face = cube_scanner.cube_faces[face_name]
+
+            if scanned_face is None:
+                continue
+
+            for row in range(3):
+                for col in range(3):
+
+                    color = scanned_face[row][col]
+
+                    sticker = gui_face.stickers[row][col]
+
+                    sticker.current_color = color
+
+                    sticker.setStyleSheet(
+                        f"""
+                        background-color:{color};
+                        border:1px solid #444;
+                        """
+                    )
